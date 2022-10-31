@@ -3,6 +3,7 @@ package com.tm.chat_app.controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +26,11 @@ public class LoginFormController {
             stage.show(); */
             Stage st = (Stage)loginFormContext.getScene().getWindow();
             st.setTitle(tfUserName.getText());
-            st.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/ClientForm.fxml"))));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ClientForm.fxml"));
+            Parent parent = fxmlLoader.load();
+            ClientFormController controller = fxmlLoader.getController();
+            controller.setClientName(tfUserName.getText());
+            st.setScene(new Scene(parent));
         }else {
             new Alert(Alert.AlertType.WARNING,"User Name is required !").show();
         }
