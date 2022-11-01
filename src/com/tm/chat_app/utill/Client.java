@@ -33,6 +33,28 @@ public class Client {
         }
     }
 
+    //bind and waiting for message from client
+    public void listenForMessage(VBox vBox,String userName){
+        new Thread(()->{
+            String msgFromChat=null;
+            String imgFromChat=null;
+            while (socket.isConnected() && !userName.equals("SERVER")){
+                try{
+                    msgFromChat=bufferedReader.readLine();
+                    if (msgFromChat.contains(".jpg") || msgFromChat.contains(".png")){
+                        imgFromChat=msgFromChat;
+                        //img===========>
+                    }else {
+
+                    }
+                }catch (Exception e){
+
+                }
+            }
+        }).start();
+    }
+
+
     public void closeAll(Socket socket ,BufferedReader bufferedReader, BufferedWriter bufferedWriter){
         try {
                 if(bufferedReader != null) bufferedReader.close();
