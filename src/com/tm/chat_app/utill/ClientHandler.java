@@ -52,7 +52,30 @@ public class ClientHandler implements Runnable{
                 if(msgFromClient.contains("left")){
                     removeFromChat();
                 }
+                broadcastMessage(msgFromClient);
             }catch (IOException e){
+                closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
+            }
+        }
+    }
+
+    public void broadcastMessage(String msgBroadcast){
+        for (ClientHandler client: allClients
+             ) {
+            try {
+                if(!client.userName.equals(userName)){
+                    client.bufferedWriter.write(msgBroadcast);
+                    client.bufferedWriter.newLine();
+                    client.bufferedWriter.flush();
+                    System.out.println("");
+                }
+                if (client.userName.equals(userName)){
+                    String[] originalMsg = msgBroadcast.split(":");
+                    if (originalMsg.length==2){
+                        sendToOriginalUser(client,originalMsg[1]);
+                    }
+                }
+            }catch (Exception e){
                 closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
             }
         }
