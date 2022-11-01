@@ -34,6 +34,29 @@ public class Client {
         }
     }
 
+    public void sendMessage(String msgToSend,VBox vBox,String sender){
+        this.senderVBox=vBox;
+        new Thread(()->{
+            try {
+                this.bufferedWriter.write(userName);
+                this.bufferedWriter.newLine();
+                this.bufferedWriter.flush();
+                if(msgToSend.contains("left")){
+                    this.bufferedWriter.write(msgToSend);
+                } else if (msgToSend.contains("has joined")) {
+                    this.bufferedWriter.write(msgToSend);
+                }else {
+                    this.bufferedWriter.flush();
+                    this.bufferedWriter.write(userName+" : "+msgToSend);
+                }
+                this.bufferedWriter.newLine();
+                this.bufferedWriter.flush();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     //bind and waiting for message from client
     public void listenForMessage(VBox vBox,String userName){
         new Thread(()->{
