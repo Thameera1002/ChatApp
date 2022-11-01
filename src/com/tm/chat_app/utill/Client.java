@@ -53,6 +53,7 @@ public class Client {
                 this.bufferedWriter.flush();
             }catch (Exception e){
                 e.printStackTrace();
+                closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
             }
         }).start();
     }
