@@ -2,12 +2,15 @@ package com.tm.chat_app.utill;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import jdk.nashorn.internal.runtime.Scope;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 
 public class Client {
+
+    //This class in to initialize a client
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
@@ -26,7 +29,17 @@ public class Client {
             this.userName=userName;
             this.vBox = vBox;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
+        }
+    }
+
+    public void closeAll(Socket socket ,BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+        try {
+                if(bufferedReader != null) bufferedReader.close();
+                if (bufferedWriter != null) bufferedWriter.close();
+                if(socket != null) socket.close();
+        }catch (Exception e){
+
         }
     }
 }
