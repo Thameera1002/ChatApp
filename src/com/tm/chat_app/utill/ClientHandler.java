@@ -1,5 +1,6 @@
 package com.tm.chat_app.utill;
 
+import com.tm.chat_app.controller.ServerFormController;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
@@ -37,12 +38,29 @@ public class ClientHandler implements Runnable{
             if (bufferedWriter != null) bufferedWriter.close();
             if(socket != null) socket.close();
         }catch (Exception e){
-            closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
+            e.printStackTrace();
         }
     }
 
     @Override
     public void run() {
+        ServerFormController.displayMessageOnLeft(userName+" has joined to the chat.",vBox);
+        String msgFromClient;
+        while (socket.isConnected()){
+            try {
+                msgFromClient = bufferedReader.readLine();
+                if(msgFromClient.contains("left")){
+                    removeFromChat();
+                }
+            }catch (IOException e){
+                closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
+            }
+        }
+    }
 
+    private void removeFromChat() {
+        allClients.remove(this);
+        ServerFormController.displayMessageOnLeft(this.userName+" has left the chat.",vBox);
+        closeAll(this.socket,this.bufferedReader,this.bufferedWriter);
     }
 }
