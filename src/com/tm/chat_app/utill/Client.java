@@ -45,7 +45,17 @@ public class Client {
                         imgFromChat=msgFromChat;
                         //img===========>
                     }else {
-
+                        String[] strings = msgFromChat.split(":");
+                        String sendersName = strings[0].trim();
+                        if(strings.length==2 || msgFromChat.contains("has joined") || msgFromChat.contains("left")){
+                            if(sendersName.equals("sender")){
+                                //clientform controller => display message ======> we need static method
+                                //show in right side
+                            }else {
+                                //clientform controller => display message ======> we need static method
+                                //show in left side
+                            }
+                        }
                     }
                 }catch (Exception e){
 
