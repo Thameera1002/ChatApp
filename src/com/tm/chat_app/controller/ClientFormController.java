@@ -53,8 +53,25 @@ public class ClientFormController {
             hBox.setPadding(new Insets(5,5,5,10));
             Text msgText = new Text(messageToSend);
             TextFlow textFlow   = new TextFlow(msgText);
-            textFlow.setStyle("-fx-background-color: #16a085; -fx-background-radius: 10 10 0 10");
+            textFlow.setStyle("-fx-background-color: #2c3e50; -fx-background-radius: 10 10 0 10");
             textFlow.setPadding(new Insets(5,5,5,10));
+            msgText.setFill(Color.WHITE);
+            hBox.getChildren().add(textFlow);
+            Platform.runLater(()->{
+                vBox.getChildren().add(hBox);
+            });
+        }
+    }
+
+    public static void displayMessageOnLeft(String message, VBox vBox){
+        if(!message.isEmpty()){
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPadding(new Insets(5,5,5,10));
+            Text msgText = new Text(message);
+            TextFlow textFlow   = new TextFlow(msgText);
+            textFlow.setStyle("-fx-background-color: #16a085; -fx-background-radius: 10 10 0 10");
+            textFlow.setPadding(new Insets(5,10,5,10));
             msgText.setFill(Color.WHITE);
             hBox.getChildren().add(textFlow);
             Platform.runLater(()->{
