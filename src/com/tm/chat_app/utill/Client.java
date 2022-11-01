@@ -1,5 +1,6 @@
 package com.tm.chat_app.utill;
 
+import com.tm.chat_app.controller.ClientFormController;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import jdk.nashorn.internal.runtime.Scope;
@@ -51,9 +52,11 @@ public class Client {
                             if(sendersName.equals("sender")){
                                 //clientform controller => display message ======> we need static method
                                 //show in right side
+                                ClientFormController.displayMessageOnRight(msgFromChat.split(":")[1],vBox);
                             }else {
                                 //clientform controller => display message ======> we need static method
                                 //show in left side
+                                ClientFormController.displayMessageOnLeft(msgFromChat,vBox);
                             }
                         }
                     }
