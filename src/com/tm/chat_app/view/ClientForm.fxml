@@ -18,7 +18,7 @@
                 <Image url="@assets/app_background.jpg" />
             </image>
         </ImageView>
-        <ScrollPane layoutY="25.0" prefHeight="406.0" prefWidth="530.0">
+        <ScrollPane fx:id="scrollPane" layoutY="25.0" prefHeight="406.0" prefWidth="530.0">
          <content>
             <VBox fx:id="vbox_msg" prefHeight="406.0" prefWidth="528.0" />
          </content>
@@ -38,7 +38,7 @@
             </children>
         </AnchorPane>
         <TextField fx:id="txtMessageBox" layoutX="2.0" layoutY="434.0" prefHeight="34.0" prefWidth="485.0" style="-fx-background-radius: 50;" />
-        <MaterialDesignIconView fill="WHITE" glyphName="SEND" layoutX="495.0" layoutY="462.0" size="30" />
+        <MaterialDesignIconView fill="WHITE" glyphName="SEND" layoutX="495.0" layoutY="462.0" onMouseClicked="#sendMessageOnAction" size="30" />
       <MaterialDesignIconView fill="#282828" glyphName="CAMERA" layoutX="456.0" layoutY="459.0" size="20">
          <cursor>
             <Cursor fx:constant="HAND" />

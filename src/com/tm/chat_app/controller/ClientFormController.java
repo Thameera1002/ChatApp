@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -21,10 +22,11 @@ public class ClientFormController {
     public TextField txtMessageBox;
     public VBox vbox_msg;
     public Label lbl_Client;
-    String clientName;
     public Client client;
 
+    public static String userName="";
     public static VBox senderVBox;
+    public ScrollPane scrollPane;
 
     public void initialize(){
         System.out.println("Initialize");
@@ -32,16 +34,20 @@ public class ClientFormController {
     public void setClientName(String name){
         new Thread(()->{
             try {
+                userName=name;
                 senderVBox = vbox_msg;
                 lbl_Client.setText(name);
                 client = new Client(new Socket("localhost",5000),name,vbox_msg);
                 System.out.println("Connected to the server...");
+                client.listenForMessage(vbox_msg,name);
+                client.sendMessage(name+" has joined to the chat.",vbox_msg,"SERVER");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }).start();
-        clientName=name;
-        System.out.println(clientName);
+        vbox_msg.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPane.setVvalue((Double) newValue);
+        });
     }
     public void exitClientOnClick(MouseEvent mouseEvent) {
     }
@@ -78,5 +84,10 @@ public class ClientFormController {
                 vBox.getChildren().add(hBox);
             });
         }
+    }
+
+    public void sendMessageOnAction(MouseEvent mouseEvent) {
+        client.sendMessage(txtMessageBox.getText(),vbox_msg,userName);
+        txtMessageBox.clear();
     }
 }
